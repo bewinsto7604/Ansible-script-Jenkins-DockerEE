@@ -56,10 +56,20 @@
   with_items: "{{ jobs }}"
   tags: [jenkins]
 
+- name: Installing docker-py for ansible docker module to work
+  shell: |
+    curl https://bootstrap.pypa.io/get-pip.py -o get-pip.py
+    python get-pip.py
+    sudo pip install docker-py
+
 - name: Container is running
   docker_container:
-    name=jenkins
-    image=jenkins:1.642.4
-    ports=8080:8080
-    volumes=/data/jenkins:/var/jenkins_home
+    name: jenkins
+    image: getintodevops/jenkins-withdocker:lts
+    ports:
+     - "8085:8080"
+     - "50000:50000"
+    volumes: 
+     - "/data/jenkins:/var/jenkins_home"
+     - "/var/run/docker.sock:/var/run/docker.sock"
   tags: [jenkins]

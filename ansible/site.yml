@@ -1,0 +1,4 @@
+- hosts: jenkinsmaster
+  become: yes
+  roles:
+    - jenkins

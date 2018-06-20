@@ -1,6 +1,0 @@
-- hosts: books-service
-  remote_user: vagrant
-  become: yes
-  roles:
-    - docker
-    - books-service
